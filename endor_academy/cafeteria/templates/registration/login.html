@@ -1,0 +1,49 @@
+{% extends 'cafeteria/base.html' %}
+
+{% block title %}Cafeteria Login - Endor Academy{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+    <div class="card" style="max-width: 400px; margin: 4rem auto; border-top: 5px solid var(--accent-color);">
+        <h2 style="margin-top: 0; color: var(--accent-color);">Cafeteria Access</h2>
+        <p style="color: #a0aec0; margin-bottom: 2rem; font-size: 0.9rem;">
+            Restricted System: Enter your credentials to view the secret menu.
+        </p>
+
+        <form method="post" action="{% url 'login' %}" style="text-align: left;">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div
+                style="background-color: rgba(229, 62, 62, 0.1); border: 1px solid #e53e3e; color: #fc8181; padding: 0.8rem; border-radius: 4px; margin-bottom: 1rem; font-size: 0.9rem;">
+                Your username and password didn't match. Please try again.
+            </div>
+            {% endif %}
+
+            <div style="margin-bottom: 1.2rem;">
+                <label for="id_username"
+                    style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Username</label>
+                <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username"
+                    maxlength="150" required id="id_username"
+                    style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #4a5568; background-color: var(--primary-bg); color: var(--text-color); box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label for="id_password"
+                    style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Password</label>
+                <input type="password" name="password" autocomplete="current-password" required id="id_password"
+                    style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #4a5568; background-color: var(--primary-bg); color: var(--text-color); box-sizing: border-box;">
+            </div>
+
+            <button type="submit" class="btn"
+                style="width: 100%; font-size: 1.1rem; padding: 0.8rem;">Authenticate</button>
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+
+        <div style="margin-top: 1.5rem; border-top: 1px solid #4a5568; padding-top: 1rem;">
+            <a href="{% url 'landing' %}" style="color: #a0aec0; font-size: 0.9rem; text-decoration: none;">← Return to
+                Surface Level</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

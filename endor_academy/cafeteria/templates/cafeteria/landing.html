@@ -1,0 +1,34 @@
+{% extends 'cafeteria/base.html' %}
+{% load static %}
+{% block title %}Welcome to Endor Academy{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+    <h1 style="color: var(--accent-color); font-size: 3rem; margin-bottom: 0.5rem;">Yub Nub!</h1>
+    <h2 style="font-weight: 300;">Welcome to the Endor Ewok Academy</h2>
+
+    <div class="card">
+        <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">
+            Welcome, young warriors and foragers. Our academy is dedicated to preserving the
+            ancient ways of the forest moon while preparing you for a bright future among the trees.
+        </p>
+
+        <!-- Dynamic AI Image Requirement -->
+        <img src="{% static 'cafeteria/images/academy.jpg' %}" alt="Endor Ewok Academy" class="hero-img">
+
+        <p style="margin-top: 1.5rem; color: #a0aec0;">
+            *Access to the cafeteria's Secret Menu is strictly limited to authorized personnel only.
+            Do not let the Imperial Scout Troopers near the sacred recipes.*
+        </p>
+
+        <div style="margin-top: 2rem;">
+            {% if user.is_authenticated %}
+            <a href="{% url 'secret_menu' %}" class="btn" style="font-size: 1.2rem; padding: 1rem 2rem;">Access Secret
+                Menu</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn" style="font-size: 1.2rem; padding: 1rem 2rem;">Cafeteria Login</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
