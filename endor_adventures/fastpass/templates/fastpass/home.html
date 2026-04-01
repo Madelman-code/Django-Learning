@@ -1,0 +1,38 @@
+{% extends 'fastpass/base.html' %}
+{% block title %}Home - Endor Adventures{% endblock %}
+{% block content %}
+<div class="card">
+<h2>Welcome to Endor Adventures!</h2>
+<p>The galaxy's premier Ewok-themed amusement park</p>
+</div>
+<div class="grid">
+<div class="card">
+<h2>🏞️ {{ zone_count }}</h2>
+<p>Theme Zones Open</p>
+</div>
+<div class="card">
+<h2>🎢 {{ attraction_count }}</h2>
+<p>Attractions Running</p>
+</div>
+<div class="card">
+<h2>⏱️ {{ avg_wait|floatformat:0 }} min</h2>
+<p>Average Wait Time</p>
+</div>
+</div>
+<div class="card">
+<h2>⚡ Shortest Waits Right Now</h2>
+<div class="grid">
+{% for attraction in featured %}
+<div class="card">
+<h3>{{ attraction.name }}</h3>
+<p>{{ attraction.zone.name }}</p>
+<span class="wait-badge wait-short">
+{{ attraction.current_wait_minutes }} min
+</span>
+</div>
+{% empty %}
+<p>No attractions available.</p>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

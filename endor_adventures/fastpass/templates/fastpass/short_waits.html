@@ -1,0 +1,28 @@
+{% extends 'fastpass/base.html' %}
+{% block title %}Short Wait Rides{% endblock %}
+{% block content %}
+<div class="card">
+<h2>⚡ Short Wait Rides</h2>
+<p>These rides currently have wait times under 30 minutes!</p>
+</div>
+{% if rides %}
+<div class="grid">
+{% for ride in rides %}
+<div class="card">
+<h3>{{ ride.name }}</h3>
+<p>{{ ride.zone.name }}</p>
+<span class="wait-badge wait-short">
+{{ ride.current_wait_minutes }} min
+</span>
+<p style="margin-top: 10px;">
+Thrill Level: {{ ride.get_thrill_level_display }}
+</p>
+</div>
+{% endfor %}
+</div>
+{% else %}
+<div class="card">
+<p>🎢 No rides with short waits right now. Check back soon!</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'fastpass/base.html' %}
+{% block title %}My FastPasses{% endblock %}
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<div style="padding: 15px; margin-bottom: 20px; border-radius: 5px;
+background: {% if message.tags == 'error' %}#dc3545{% elif message.tags == 'success' %}#28a745{% elif message.tags == 'warning' %}#ffc107{% else %}#17a2b8{% endif %};">
+{{ message }}
+</div>
+{% endfor %}
+{% endif %}
+<div class="card">
+<h2>Welcome, {{ guest.first_name }}! 🐻</h2>
+<p><strong>Membership:</strong> {{ guest.get_membership_tier_display }}</p>
+<p><strong>Email:</strong> {{ guest.email }}</p>
+<p style="margin-top: 15px; font-size: 1.2em;">
+<strong>FastPasses remaining today:</strong>
+<span style="color: {% if remaining_passes > 0 %}#90EE90{% else %}#ff6b6b{% endif %};">
+{{ remaining_passes }} of {{ guest.daily_fastpass_limit }}
+</span>
+</p>
+</div>
+<h3 style="margin: 30px 0 20px;">🎫 Today's FastPasses</h3>
+{% if todays_passes %}
+<div class="grid">
+{% for fp in todays_passes %}
+<div class="card">
+<h3>{{ fp.attraction.name }}</h3>
+<p>{{ fp.attraction.zone.name }}</p>
+<p style="font-size: 1.3em; margin: 10px 0;">
+⏰ {{ fp.time_slot.start_time|time:"g:i A" }}
+</p>
+<span style="padding: 5px 15px; border-radius: 20px;
+background: {% if fp.status == 'confirmed' %}#28a745{% elif fp.status == 'used' %}#6c757d{% else %}#dc3545{% endif %};">
+{{ fp.get_status_display }}
+</span>
+</div>
+{% endfor %}
+</div>
+{% else %}
+<div class="card">
+<p>You don't have any FastPasses booked for today.</p>
+</div>
+{% endif %}
+{% if remaining_passes > 0 %}
+<div class="card" style="margin-top: 30px;">
+<h3>🎢 Book More FastPasses</h3>
+<a href="{% url 'fastpass:attraction_list' %}" style="
+display: inline-block;
+margin-top: 10px;
+padding: 12px 25px;
+background: #28a745;
+color: white;
+text-decoration: none;
+border-radius: 5px;
+">Browse Attractions →</a>
+</div>
+{% endif %}
+{% endblock %}

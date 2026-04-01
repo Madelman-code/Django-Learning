@@ -1,0 +1,29 @@
+{% extends 'fastpass/base.html' %}
+{% block title %}{{ zone.name }}{% endblock %}
+{% block content %}
+<div class="card">
+<h2>{{ zone.name }}</h2>
+<p>{{ zone.description }}</p>
+</div>
+<h3 style="margin: 20px 0;">Attractions in {{ zone.name }}</h3>
+<div class="grid">
+{% for attraction in attractions %}
+<div class="card">
+<h3>{{ attraction.name }}</h3>
+<p>{{ attraction.get_attraction_type_display }}</p>
+<p style="margin: 10px 0;">
+<span class="wait-badge {% if attraction.current_wait_minutes < 30 %}wait-short{% elif attraction.current_wait_minutes < 60 %}wait-medium{% else %}wait-long{% endif %}">
+{{ attraction.current_wait_minutes }} min wait
+</span>
+</p>
+{% if attraction.min_height_cm > 0 %}
+<p style="font-size: 0.9em;">
+⚠️ Must be {{ attraction.min_height_cm }}cm or taller
+</p>
+{% endif %}
+</div>
+{% empty %}
+<p>No attractions currently operating.</p>
+{% endfor %}
+</div>
+{% endblock %}

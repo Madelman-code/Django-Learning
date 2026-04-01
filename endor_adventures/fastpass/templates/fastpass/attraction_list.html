@@ -1,0 +1,23 @@
+{% extends 'fastpass/base.html' %}
+{% block title %}All Attractions{% endblock %}
+{% block content %}
+<div class="card">
+<h2>🎢 All Attractions</h2>
+<p>Browse all attractions at Endor Adventures</p>
+</div>
+<div class="grid">
+{% for attraction in attractions %}
+<div class="card">
+<h3>{{ attraction.name }}</h3>
+<p>{{ attraction.zone.name }} | {{ attraction.get_attraction_type_display }}</p>
+<p style="margin: 10px 0;">
+<span class="wait-badge {% if attraction.current_wait_minutes < 30 %}wait-short{% elif attraction.current_wait_minutes < 60 %}wait-medium{% else %}wait-long{% endif %}">
+{{ attraction.current_wait_minutes }} min
+</span>
+</p>
+</div>
+{% empty %}
+<p>No attractions found.</p>
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Endor Adventures{% endblock %}</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+font-family: Arial, sans-serif;
+background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+min-height: 100vh;
+color: white;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+header {
+background: rgba(0,0,0,0.3);
+padding: 20px;
+margin-bottom: 30px;
+}
+header h1 { color: #90EE90; }
+nav { margin-top: 15px; }
+nav a {
+color: white;
+text-decoration: none;
+margin-right: 20px;
+padding: 8px 16px;
+background: rgba(255,255,255,0.1);
+border-radius: 5px;
+}
+nav a:hover { background: rgba(255,255,255,0.2); }
+.card {
+background: rgba(255,255,255,0.1);
+border-radius: 10px;
+padding: 20px;
+margin-bottom: 20px;
+}
+.card h2 { color: #90EE90; margin-bottom: 10px; }
+.grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 20px;
+}
+.wait-badge {
+display: inline-block;
+padding: 5px 15px;
+border-radius: 20px;
+font-weight: bold;
+}
+.wait-short { background: #28a745; }
+.wait-medium { background: #ffc107; color: black; }
+.wait-long { background: #dc3545; }
+footer {
+text-align: center;
+padding: 30px;
+opacity: 0.7;
+}
+</style>
+</head>
+<body>
+<header>
+<div class="container">
+<h1>🐻 Endor Adventures 🌳</h1>
+<nav>
+<a href="{% url 'fastpass:home' %}">Home</a>
+<a href="{% url 'fastpass:zone_list' %}">Zones</a>
+<a href="{% url 'fastpass:attraction_list' %}">Attractions</a>
+<a href="{% url 'fastpass:short_waits' %}">Short Waits</a>
+<a href="{% url 'fastpass:guest_login' %}">My FastPasses</a>
+</nav>
+</div>
+</header>
+<main class="container">
+{% block content %}{% endblock %}
+</main>
+<footer>
+<p>Yub Nub! Welcome to the Forest Moon of Endor</p>
+</footer>
+</body>
+</html>
